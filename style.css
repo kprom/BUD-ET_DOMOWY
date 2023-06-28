@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(216, 214, 214, 0.82);
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.app-header {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.app-logo {
+  height: 60px;
+}
+
+.app-main {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.incomes-wrapper {
+  border: 2px solid #b3840d;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.outcomes-wrapper {
+  border: 2px solid #b3840d;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.incomes-list {
+  padding: 0;
+}
+
+.outcomes-list {
+  padding: 0;
+}
+
+.incomes-inputs {
+  padding-bottom: 15px;
+  border-bottom: 2px #b3840d solid;
+}
+
+.outcomes-inputs {
+  padding-bottom: 15px;
+  border-bottom: 2px #b3840d solid;
+}
+
+.list-income-item {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-outcome-item {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.income-list-element-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10%;
+}
+
+.outcome-list-element-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10%;
+}
+
+.sum {
+  font-weight: 800;
+}
