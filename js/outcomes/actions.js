@@ -1,54 +1,68 @@
 "use strict";
 
 import { outcomeName, outcomeValue } from "../main.js";
-import { renderOutcomesList } from "./updates.js"
+import { renderOutcomesList } from "./updates.js";
 
 export let outcomes = [];
 
 export const addOutcome = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const _outcome = {
-        name: outcomeName.value,
-        value: Number(outcomeValue.value),
-        id: Math.random().toString(),
-    };
+  const name = outcomeName.value.trim();
+  const value = Number(outcomeValue.value);
 
-    outcomes.push(_outcome);
-    
-    renderOutcomesList();
+  if (name === "" || isNaN(value) || value <= 0) {
+    alert("Podaj poprawną nazwę wydatków oraz kwotę.");
+    return;
+  }
 
-    outcomeName.value = " ";
-    outcomeValue.value = "";
+  const newOutcome = {
+    name: name,
+    value: value,
+    id: Math.random().toString(),
+  };
+
+  outcomes.push(newOutcome);
+
+  renderOutcomesList();
+
+  outcomeName.value = " ";
+  outcomeValue.value = "";
 };
 
 export const deleteOutcome = (e) => {
-    e.preventDefault();
-    const idToDelete = e.target.id;
-    outcomes = outcomes.filter((el) => el.id !== idToDelete);
+  e.preventDefault();
+  const idToDelete = e.target.id;
+  outcomes = outcomes.filter((el) => el.id !== idToDelete);
 
-    renderOutcomesList();
+  renderOutcomesList();
 };
 
-
 export const editOutcomesList = (e) => {
-    e.preventDefault();
-    const idToEdit = e.target.id.split("-")[2];
-    const nameValue = document.getElementById(`update-name-${idToEdit}`).value;
-    const outcomeValue = document.getElementById(`update-outcome-${idToEdit}`).value;
+  e.preventDefault();
+  const idToEdit = e.target.id.split("-")[2];
+  const nameValue = document
+    .getElementById(`update-name-${idToEdit}`)
+    .value.trim();
+  const outcomeValue = Number(
+    document.getElementById(`update-outcome-${idToEdit}`).value
+  );
 
-    if (nameValue && outcomeValue) {
-        outcomes = outcomes.map((outcome) => {
-            if (outcome.id === idToEdit) {
-                return {
-                    ...outcome,
-                    name: nameValue,
-                    value: Number(outcomeValue),
-                };
-            }
-            return outcome;
-        });
+  if (nameValue === "" || isNaN(outcomeValue) || outcomeValue <= 0) {
+    alert("Podaj poprawną nazwę wydatków oraz kwotę.");
+    return;
+  }
 
-        renderOutcomesList();
-    };
+  outcomes = outcomes.map((outcome) => {
+    if (outcome.id === idToEdit) {
+      return {
+        ...outcome,
+        name: nameValue,
+        value: outcomeValue,
+      };
+    }
+    return outcome;
+  });
+
+  renderOutcomesList();
 };

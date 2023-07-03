@@ -4,97 +4,103 @@ import { displayCurrentBalance, incomesList, incomesSum } from "../main.js";
 import { incomes, deleteIncome, editIncomesList } from "./actions.js";
 
 export const renderIncomesList = () => {
-    incomesList.innerHTML = "";
-    for (let income of incomes) {
-        const listElement = document.createElement("li");
-        listElement.classList.add("list-income-item")
-        listElement.id = income.id;
+  incomesList.innerHTML = "";
 
-        const listElementWrapper = document.createElement("div");
-        listElementWrapper.classList.add("income-list-element-wrapper");
+  for (let income of incomes) {
+    const listElement = document.createElement("li");
+    listElement.classList.add("list-item");
+    listElement.id = income.id;
 
-        const name = document.createElement("p");
-        name.innerText = income.name;
+    const listElementWrapper = document.createElement("div");
+    listElementWrapper.classList.add("list-element-wrapper");
 
-        const value = document.createElement("p");
-        value.innerText = income.value;
+    const name = document.createElement("p");
+    name.innerText = income.name;
 
-        const buttonsWrapper = document.createElement("div");
-        buttonsWrapper.classList.add("buttons-wrapper");
+    const value = document.createElement("p");
+    value.innerText = income.value;
 
-        const editButton = document.createElement("button");
-        editButton.id = income.id;
-        editButton.innerText = "Edytuj";
+    const buttonsWrapper = document.createElement("div");
+    buttonsWrapper.classList.add("buttons-wrapper");
 
-        const removeButton = document.createElement("button");
-        removeButton.id = income.id;
-        removeButton.innerText = "Usuń";
+    const editButton = document.createElement("button");
+    editButton.id = income.id;
+    editButton.innerText = "Edytuj";
 
-        buttonsWrapper.appendChild(editButton);
-        buttonsWrapper.appendChild(removeButton);
-        incomesList.appendChild(listElement);
+    const removeButton = document.createElement("button");
+    removeButton.id = income.id;
+    removeButton.innerText = "Usuń";
 
-        listElementWrapper.appendChild(name);
-        listElementWrapper.appendChild(value);
-        listElementWrapper.appendChild(buttonsWrapper);
+    buttonsWrapper.appendChild(editButton);
+    buttonsWrapper.appendChild(removeButton);
+    incomesList.appendChild(listElement);
 
-        listElement.appendChild(listElementWrapper);
+    listElementWrapper.appendChild(name);
+    listElementWrapper.appendChild(value);
+    listElementWrapper.appendChild(buttonsWrapper);
 
-        removeButton.addEventListener("click", deleteIncome);
-        editButton.addEventListener("click", renderUpdateInputs);
-        };
+    listElement.appendChild(listElementWrapper);
 
-        calculateIncomesSum ();
+    removeButton.addEventListener("click", deleteIncome);
+    editButton.addEventListener("click", renderUpdateInputs);
+  }
+
+  calculateIncomesSum();
 };
 
 const calculateIncomesSum = () => {
-    const _incomesSum = incomes.reduce((acc, income) => {
-        return acc + income.value;
-    }, 0);
+  const newIncomesSum = incomes.reduce((acc, income) => {
+    return acc + income.value;
+  }, 0);
 
-    incomesSum.innerText = _incomesSum;
+  incomesSum.innerText = newIncomesSum;
 
-    displayCurrentBalance();
+  displayCurrentBalance();
 };
 
 const renderUpdateInputs = (e) => {
-    const id = e.target.id;
-    const listElement = document.getElementById(id);
+  const id = e.target.id;
+  const listElement = document.getElementById(id);
 
-    const updateInputsWrapper = document.createElement("div");
-    updateInputsWrapper.id = `update-${id}`;
+  const existingUpdateInputs = document.getElementById(`update-${id}`);
+  if (existingUpdateInputs) {
+    return;
+  }
 
-    const nameInput = document.createElement("input");
-    nameInput.id = `update-name-${id}`;
+  const updateInputsWrapper = document.createElement("div");
+  updateInputsWrapper.id = `update-${id}`;
 
-    const incomeInput = document.createElement("input");
-    incomeInput.type = "number";
-    incomeInput.id = `update-income-${id}`;
+  const nameInput = document.createElement("input");
+  nameInput.id = `update-name-${id}`;
 
-    const saveButton = document.createElement("button");
-    saveButton.innerText = "SAVE";
-    saveButton.id = `update-save-${id}`;
+  const incomeInput = document.createElement("input");
+  incomeInput.type = "number";
+  incomeInput.id = `update-income-${id}`;
 
-    const cancelButton = document.createElement("button");
-    cancelButton.innerHTML = "CANCEL";
-    cancelButton.id = `update-cancel-${id}`;
+  const saveButton = document.createElement("button");
+  saveButton.innerText = "SAVE";
+  saveButton.id = `update-save-${id}`;
 
-    updateInputsWrapper.appendChild(nameInput);
-    updateInputsWrapper.appendChild(incomeInput);
-    updateInputsWrapper.appendChild(saveButton);
-    updateInputsWrapper.appendChild(cancelButton);
+  const cancelButton = document.createElement("button");
+  cancelButton.innerHTML = "CANCEL";
+  cancelButton.id = `update-cancel-${id}`;
 
-    listElement.appendChild(updateInputsWrapper);
+  updateInputsWrapper.appendChild(nameInput);
+  updateInputsWrapper.appendChild(incomeInput);
+  updateInputsWrapper.appendChild(saveButton);
+  updateInputsWrapper.appendChild(cancelButton);
 
-    cancelButton.addEventListener("click", cancelEditInputs);
-    saveButton.addEventListener("click", editIncomesList);
+  listElement.appendChild(updateInputsWrapper);
+
+  cancelButton.addEventListener("click", cancelEditInputs);
+  saveButton.addEventListener("click", editIncomesList);
 };
 
 const cancelEditInputs = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const id = e.target.id.split("-")[2];
-    const listElement = document.getElementById(id);
-    const updateElement = document.getElementById(`update-${id}`);
-    listElement.removeChild(updateElement);
+  const id = e.target.id.split("-")[2];
+  const listElement = document.getElementById(id);
+  const updateElement = document.getElementById(`update-${id}`);
+  listElement.removeChild(updateElement);
 };

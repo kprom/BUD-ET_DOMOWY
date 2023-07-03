@@ -32,57 +32,29 @@ body {
   gap: 20px;
 }
 
-.incomes-wrapper {
+.wrapper {
   border: 2px solid #b3840d;
   border-radius: 6px;
   padding: 10px;
 }
 
-.outcomes-wrapper {
-  border: 2px solid #b3840d;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.incomes-list {
+.list {
   padding: 0;
 }
 
-.outcomes-list {
-  padding: 0;
-}
-
-.incomes-inputs {
+.inputs {
   padding-bottom: 15px;
   border-bottom: 2px #b3840d solid;
 }
 
-.outcomes-inputs {
-  padding-bottom: 15px;
-  border-bottom: 2px #b3840d solid;
-}
-
-.list-income-item {
+.list-item {
   display: flex;
   gap: 15px;
   flex-direction: column;
   justify-content: center;
 }
 
-.list-outcome-item {
-  display: flex;
-  gap: 15px;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.income-list-element-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10%;
-}
-
-.outcome-list-element-wrapper {
+.list-element-wrapper {
   display: flex;
   align-items: center;
   gap: 10%;

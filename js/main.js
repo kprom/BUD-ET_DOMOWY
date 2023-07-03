@@ -20,20 +20,21 @@ const balanceInfoText = document.getElementById("info-text");
 const addIncomeButton = document.getElementById("add-income-button");
 const addOutcomeButton = document.getElementById("add-outcome-button");
 
-
 addIncomeButton.addEventListener("click", addIncome);
 addOutcomeButton.addEventListener("click", addOutcome);
 
 export const displayCurrentBalance = () => {
-    const outcome = Number(outcomesSum.innerText);
-    const income = Number(incomesSum.innerText);
-    if (outcome > income) {
-        balanceInfoText.innerText = `Wydałeś/aś za dużo, jesteś na minusie o ${outcome - income} zł.`;
-    }
-    else if (income > outcome) {
-        balanceInfoText.innerText = `Jesteś na plusie! Możesz jeszcze wydać ${income - outcome} zł.`;
-    }
-    else {
-        balanceInfoText.innerText = `Twój bilans wynosi zero.`;
-    }
+  const outcome = Number(outcomesSum.innerText);
+  const income = Number(incomesSum.innerText);
+  if (outcome > income) {
+    balanceInfoText.innerText = `Wydałeś/aś za dużo, jesteś na minusie o ${
+      outcome - income
+    } zł.`;
+  } else if (income > outcome) {
+    balanceInfoText.innerText = `Jesteś na plusie! Możesz jeszcze wydać ${
+      income - outcome
+    } zł.`;
+  } else {
+    balanceInfoText.innerText = `Twój bilans wynosi zero.`;
+  }
 };

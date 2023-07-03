@@ -1,100 +1,106 @@
 "use strict";
 
-import { displayCurrentBalance, outcomesList, outcomesSum, } from "../main.js";
+import { displayCurrentBalance, outcomesList, outcomesSum } from "../main.js";
 import { outcomes, deleteOutcome, editOutcomesList } from "./actions.js";
 
 export const renderOutcomesList = () => {
-    outcomesList.innerHTML = "";
-    for (let outcome of outcomes) {
-        const listElement = document.createElement("li");
-        listElement.classList.add("list-outcome-item")
-        listElement.id = outcome.id;
+  outcomesList.innerHTML = "";
 
-        const listElementWrapper = document.createElement("div");
-        listElementWrapper.classList.add("outcome-list-element-wrapper");
+  for (let outcome of outcomes) {
+    const listElement = document.createElement("li");
+    listElement.classList.add("list-item");
+    listElement.id = outcome.id;
 
-        const name = document.createElement("p");
-        name.innerText = outcome.name;
+    const listElementWrapper = document.createElement("div");
+    listElementWrapper.classList.add("list-element-wrapper");
 
-        const value = document.createElement("p");
-        value.innerText = outcome.value;
+    const name = document.createElement("p");
+    name.innerText = outcome.name;
 
-        const buttonsWrapper = document.createElement("div");
-        buttonsWrapper.classList.add("buttons-wrapper");
+    const value = document.createElement("p");
+    value.innerText = outcome.value;
 
-        const editButton = document.createElement("button");
-        editButton.id = outcome.id;
-        editButton.innerText = "Edytuj";
+    const buttonsWrapper = document.createElement("div");
+    buttonsWrapper.classList.add("buttons-wrapper");
 
-        const removeButton = document.createElement("button");
-        removeButton.id = outcome.id;
-        removeButton.innerText = "Usuń";
+    const editButton = document.createElement("button");
+    editButton.id = outcome.id;
+    editButton.innerText = "Edytuj";
 
-        buttonsWrapper.appendChild(editButton);
-        buttonsWrapper.appendChild(removeButton);
-        outcomesList.appendChild(listElement);
+    const removeButton = document.createElement("button");
+    removeButton.id = outcome.id;
+    removeButton.innerText = "Usuń";
 
-        listElementWrapper.appendChild(name);
-        listElementWrapper.appendChild(value);
-        listElementWrapper.appendChild(buttonsWrapper);
+    buttonsWrapper.appendChild(editButton);
+    buttonsWrapper.appendChild(removeButton);
+    outcomesList.appendChild(listElement);
 
-        listElement.appendChild(listElementWrapper);
+    listElementWrapper.appendChild(name);
+    listElementWrapper.appendChild(value);
+    listElementWrapper.appendChild(buttonsWrapper);
 
-        removeButton.addEventListener("click", deleteOutcome);
-        editButton.addEventListener("click", renderUpdateInputs);
-        };
+    listElement.appendChild(listElementWrapper);
 
-        calculateOutcomesSum ();
+    removeButton.addEventListener("click", deleteOutcome);
+    editButton.addEventListener("click", renderUpdateInputs);
+  }
+
+  calculateOutcomesSum();
 };
 
 const calculateOutcomesSum = () => {
-    const _outcomesSum = outcomes.reduce((acc, outcome) => {
-        return acc + outcome.value;
-    }, 0);
+  const newOutcomesSum = outcomes.reduce((acc, outcome) => {
+    return acc + outcome.value;
+  }, 0);
 
-    outcomesSum.innerText = _outcomesSum;
+  outcomesSum.innerText = newOutcomesSum;
 
-    displayCurrentBalance();
+  displayCurrentBalance();
 };
 
 const renderUpdateInputs = (e) => {
-    const id = e.target.id;
-    const listElement = document.getElementById(id);
+  const id = e.target.id;
+  const listElement = document.getElementById(id);
 
-    const updateInputsWrapper = document.createElement("div");
-    updateInputsWrapper.id = `update-${id}`;
+  const existingUpdateInputs = document.getElementById(`update-${id}`);
+  if (existingUpdateInputs) {
+    return;
+  }
 
-    const nameInput = document.createElement("input");
-    nameInput.id = `update-name-${id}`;
+  const updateInputsWrapper = document.createElement("div");
+  updateInputsWrapper.id = `update-${id}`;
 
-    const outcomeInput = document.createElement("input");
-    outcomeInput.type = "number";
-    outcomeInput.id = `update-outcome-${id}`;
+  const nameInput = document.createElement("input");
+  nameInput.id = `update-name-${id}`;
 
-    const saveButton = document.createElement("button");
-    saveButton.innerText = "SAVE";
-    saveButton.id = `update-save-${id}`;
+  const outcomeInput = document.createElement("input");
+  outcomeInput.type = "number";
+  outcomeInput.id = `update-outcome-${id}`;
 
-    const cancelButton = document.createElement("button");
-    cancelButton.innerHTML = "CANCEL";
-    cancelButton.id = `update-cancel-${id}`;
+  const saveButton = document.createElement("button");
+  saveButton.innerText = "SAVE";
+  saveButton.id = `update-save-${id}`;
 
-    updateInputsWrapper.appendChild(nameInput);
-    updateInputsWrapper.appendChild(outcomeInput);
-    updateInputsWrapper.appendChild(saveButton);
-    updateInputsWrapper.appendChild(cancelButton);
+  const cancelButton = document.createElement("button");
+  cancelButton.innerHTML = "CANCEL";
+  cancelButton.id = `update-cancel-${id}`;
 
-    listElement.appendChild(updateInputsWrapper);
+  updateInputsWrapper.appendChild(nameInput);
+  updateInputsWrapper.appendChild(outcomeInput);
+  updateInputsWrapper.appendChild(saveButton);
+  updateInputsWrapper.appendChild(cancelButton);
 
-    cancelButton.addEventListener("click", cancelEditInputs);
-    saveButton.addEventListener("click", editOutcomesList);
+  listElement.appendChild(updateInputsWrapper);
+
+  cancelButton.addEventListener("click", cancelEditInputs);
+  saveButton.addEventListener("click", editOutcomesList);
 };
 
 const cancelEditInputs = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const id = e.target.id.split("-")[2];
-    const listElement = document.getElementById(id);
-    const updateElement = document.getElementById(`update-${id}`);
-    listElement.removeChild(updateElement);
+  const id = e.target.id.split("-")[2];
+  const listElement = document.getElementById(id);
+  const updateElement = document.getElementById(`update-${id}`);
+  listElement.removeChild(updateElement);
 };
