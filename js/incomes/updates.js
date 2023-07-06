@@ -49,9 +49,11 @@ export const renderIncomesList = () => {
 };
 
 const calculateIncomesSum = () => {
-  const newIncomesSum = incomes.reduce((acc, income) => {
-    return acc + income.value;
-  }, 0);
+  const newIncomesSum = incomes
+    .reduce((acc, income) => {
+      return acc + parseFloat(income.value);
+    }, 0)
+    .toFixed(2);
 
   incomesSum.innerText = newIncomesSum;
 

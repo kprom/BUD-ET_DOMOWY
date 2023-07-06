@@ -27,13 +27,13 @@ export const displayCurrentBalance = () => {
   const outcome = Number(outcomesSum.innerText);
   const income = Number(incomesSum.innerText);
   if (outcome > income) {
-    balanceInfoText.innerText = `Wydałeś/aś za dużo, jesteś na minusie o ${
+    balanceInfoText.innerText = `Wydałeś/aś za dużo, jesteś na minusie o ${(
       outcome - income
-    } zł.`;
+    ).toFixed(2)} zł.`;
   } else if (income > outcome) {
-    balanceInfoText.innerText = `Jesteś na plusie! Możesz jeszcze wydać ${
+    balanceInfoText.innerText = `Jesteś na plusie! Możesz jeszcze wydać ${(
       income - outcome
-    } zł.`;
+    ).toFixed(2)} zł.`;
   } else {
     balanceInfoText.innerText = `Twój bilans wynosi zero.`;
   }

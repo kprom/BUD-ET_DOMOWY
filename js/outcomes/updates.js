@@ -50,7 +50,7 @@ export const renderOutcomesList = () => {
 
 const calculateOutcomesSum = () => {
   const newOutcomesSum = outcomes.reduce((acc, outcome) => {
-    return acc + outcome.value;
+    return acc + parseFloat(outcome.value);
   }, 0);
 
   outcomesSum.innerText = newOutcomesSum;

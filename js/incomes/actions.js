@@ -18,7 +18,7 @@ export const addIncome = (e) => {
 
   const newIncome = {
     name: name,
-    value: value,
+    value: value.toFixed(2),
     id: Math.random().toString(),
   };
 
